@@ -1,17 +1,26 @@
+# base image debian:11
 FROM python:3.9.7
 
-# set working directory
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
-
 # add requirements
-ADD ./requirements.txt /usr/src/app/requirements.txt
+COPY ./requirements.txt .
 
 # install requirements
-RUN pip install -r requirements.txt
+RUN apt-get update && apt-get upgrade -yq --no-install-recommends && \
+    pip install -r requirements.txt && \
+    rm requirements.txt && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
-COPY ./src /usr/src/app
+# add user non-root 
+RUN useradd --user-group --system --create-home --no-log-init myapp
+USER myapp
 
-ENV FLASK_APP /usr/src/app/project/app.py
+# set working dir
+WORKDIR /home/myapp
 
-CMD flask run --host=0.0.0.0 --port=80
+# copy app code
+COPY ./src .
+
+# launch falsk app
+ENV FLASK_APP /home/myapp/app/project/app.py
+CMD flask run --host=0.0.0.0 --port=5000

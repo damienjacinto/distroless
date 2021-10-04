@@ -7,7 +7,7 @@ Image avec Uber vs Amazon indigene
 
 dockerfile classic avec python
 pas de root plz
-taille de l'image
+taille de l'image (utiliser dive)
 clair (vulnérabilité)
 déployer dans le cluster (max nombre de pod ?)
 test avec k6 sur un hpa
