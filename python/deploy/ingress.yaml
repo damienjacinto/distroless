@@ -1,0 +1,29 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: test2
+  namespace: test
+spec:
+  entryPoints:
+  - websecure
+  routes:
+  - kind: Rule
+    match: Host(`testapp.priv.eu.finalcad.cloud`) && Path(`/test`)
+    services:
+    - name: test
+      namespace: test
+      port: 80
+      scheme: http
+  - kind: Rule
+    match: Host(`testapp.eu.finalcad.cloud`) && Path(`/test`)
+    services:
+    - name: test
+      namespace: test
+      port: 80
+      scheme: http
+  tls:
+    certResolver: dnsResolver
+    domains:
+    - main: '*.priv.eu.finalcad.cloud'
+      sans:
+      - '*.eu.finalcad.cloud'
