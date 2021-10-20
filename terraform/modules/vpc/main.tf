@@ -14,10 +14,18 @@ resource "google_compute_network" "vpc" {
 
 resource "google_compute_router" "vpc_router" {
   name = "${var.project_id}-router"
-
   project = var.project_id
   region  = var.region
   network = google_compute_network.vpc.name
+}
+
+resource "google_compute_route" "vpc_default_egress" {
+  name = "${var.project_id}-router-default-egress"
+  project = var.project_id
+  network = google_compute_network.vpc.name
+  description            = "route through IGW to access internet"
+  dest_range             = "0.0.0.0/0"
+  next_hop_gateway       = "default-internet-gateway"
 }
 
 resource "google_compute_router_nat" "vpc_nat" {

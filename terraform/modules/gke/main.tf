@@ -7,7 +7,6 @@ resource "google_container_cluster" "primary" {
   # separately managed node pools. So we create the smallest possible default
   # node pool and immediately delete it.
   remove_default_node_pool = true
-  initial_node_count       = 1
 
   network    = var.gke_network_name
   subnetwork = var.gke_subnet_name
@@ -31,11 +30,20 @@ resource "google_container_cluster" "primary" {
     }
   }
 
+  node_pool {
+    name               = "default-pool"
+    initial_node_count = 1
+    management {
+      auto_repair  = !var.gke_enable_kubernetes_alpha
+      auto_upgrade = !var.gke_enable_kubernetes_alpha
+    }
+  }
+
   lifecycle {
     ignore_changes = [
       # Since we provide `remove_default_node_pool = true`, the `node_config` is only relevant for a valid construction of
       # the GKE cluster in the initial creation. As such, any changes to the `node_config` should be ignored.
-      node_config, initial_node_count
+      node_config, initial_node_count, node_pool, instance_group_urls
     ]
   }
 }

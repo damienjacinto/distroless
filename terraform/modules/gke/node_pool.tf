@@ -5,13 +5,13 @@ resource "google_container_node_pool" "primary_nodes" {
   node_count = var.gke_num_nodes
 
   autoscaling {
-    max_node_count = 3
+    max_node_count = 1
     min_node_count = 1
   }
 
   management {
-    auto_repair  = false
-    auto_upgrade = false
+    auto_repair  = !var.gke_enable_kubernetes_alpha
+    auto_upgrade = !var.gke_enable_kubernetes_alpha
   }
 
   node_config {
