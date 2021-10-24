@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: dashboard-certificate
+  namespace: ${namespace}
+spec:
+  dnsNames:
+    - ${dns}
+  secretName: dashboard-certificate
+  issuerRef:
+    name: ${issuerName}
+    kind: ClusterIssuer

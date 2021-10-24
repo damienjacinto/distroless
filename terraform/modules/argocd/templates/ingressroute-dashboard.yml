@@ -1,0 +1,17 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: argocd-dashboard-external
+  namespace: ${namespace}
+spec:
+  entryPoints:
+  - websecure
+  routes:
+  - kind: Rule
+    match: Host(`${dns}`)
+    services:
+    - kind: Service
+      name: argocd-server
+      port: 80
+  tls:
+    secretName: dashboard-certificate

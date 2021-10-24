@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: bootstrap-app
+  namespace: ${namespace}
+spec:
+  destination:
+    namespace: ${namespace}
+    server: "https://kubernetes.default.svc"
+  project: default
+  source:
+    helm:
+      valueFiles:
+      - values.yaml
+    path: .
+    repoURL: "git@github.com:damienjacinto/distroless-argocd-bootstrap-app.git"
+    targetRevision: HEAD
+  syncPolicy:
+    automated: {} 
+

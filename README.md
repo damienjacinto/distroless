@@ -14,3 +14,4 @@ gcloud projects add-iam-policy-binding distroless --member serviceAccount:terraf
 gcloud projects add-iam-policy-binding distroless --member serviceAccount:terraform@distroless.iam.gserviceaccount.com --role roles/container.admin
 
 
+https://argo-cd-docs.readthedocs.io/en/latest/operator-manual/sso/

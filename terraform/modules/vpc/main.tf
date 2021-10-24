@@ -9,7 +9,7 @@ resource "google_compute_network" "vpc" {
   name                            = "${var.project_id}-vpc"
   auto_create_subnetworks         = "false"
   routing_mode                    = "REGIONAL"
-  delete_default_routes_on_create = true
+  delete_default_routes_on_create = false
 }
 
 resource "google_compute_router" "vpc_router" {
