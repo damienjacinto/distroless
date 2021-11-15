@@ -1,0 +1,14 @@
+apiVersion: kpack.io/v1alpha2
+kind: ClusterStack
+metadata:
+  name: base
+  namespace: ${namespace}
+spec:
+  id: "io.buildpacks.stacks.bionic"
+  buildImage:
+    image: "paketobuildpacks/build:base-cnb"
+  runImage:
+    image: "europe-central2-docker.pkg.dev/distroless-329216/distroless/base-cnb@sha256:c2568c34928edc431fa581e7fe4b15062b60325799b1e2ae2a47824c06a6bc69"
+  serviceAccountRef:
+    namespace: kpack
+    name: kpack

@@ -2,6 +2,7 @@ locals {
   region                    = "europe-central2"
   project_id                = "distroless-329216"
   gcp_auth_file             = "../auth/terraform.json"
+  gcr_auth_file             = "../auth/snyk.json"
   arogcd_auth_file          = "../auth/argocd.json"
   argocd_sshkey             = "../auth/sshkey"
   traefik_chart_version     = "9.19.0"
@@ -62,6 +63,7 @@ module "kpack" {
   source                       = "./modules/kpack"
   kpack_cluster_host           = module.gke.cluster_host
   kpack_cluster_ca_certificate = module.gke.ca_certificate
+  kpack_registry_password      = file(local.gcr_auth_file)
 }
 
 module "argocd" {

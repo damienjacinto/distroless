@@ -1,0 +1,19 @@
+apiVersion: kpack.io/v1alpha2
+kind: ClusterBuilder
+metadata:
+  name: builder
+  namespace: ${namespace}
+spec:
+  tag: europe-central2-docker.pkg.dev/distroless-329216/distroless/distroless-builder
+  serviceAccountRef:
+    namespace: kpack
+    name: kpack
+  stack:
+    name: base
+    kind: ClusterStack
+  store:
+    name: store
+    kind: ClusterStore
+  order:
+    - group:
+      - id: paketo-buildpacks/nodejs

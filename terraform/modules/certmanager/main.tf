@@ -17,9 +17,9 @@ EOF
 }
 
 # Wait for helm operator to install certmanager crd (no data for crd at this moment in the kubernetes provider)
-resource "time_sleep" "wait_30_seconds" {
+resource "time_sleep" "wait_60_seconds" {
   depends_on      = [helm_release.certmanager]
-  create_duration = "30s"
+  create_duration = "60s"
 }
 
 resource "kubectl_manifest" "certmanager_issuer" {

@@ -37,6 +37,9 @@ server:
       p, role:org-admin, repositories, create, *, allow
       p, role:org-admin, repositories, update, *, allow
       p, role:org-admin, repositories, delete, *, allow
+      p, role:image-updater, applications, get, *, allow
+      p, role:image-updater, applications, upadte, *, allow
+      g, image-updater, role:image-updater
       g, ${var.argocd_github_admin_user_email}, role:org-admin
     scopes: '[email, group]'   
 configs:

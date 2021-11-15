@@ -24,20 +24,25 @@ EOF
 ]
 }
 
-resource "kubectl_manifest" "ingressroute-dashboard" {
+resource "kubectl_manifest" "ingress_class" {
+  yaml_body = file("${path.module}/templates/ingress-class.yml")
+  depends_on = [helm_release.traefik]
+}
+
+resource "kubectl_manifest" "ingressroute_dashboard" {
   yaml_body = templatefile("${path.module}/templates/ingressroute-dashboard.yml", {
     namespace = kubernetes_namespace.traefik.metadata.0.name
     dns       = var.traefik_domain
   })
-  depends_on = [helm_release.traefik]
+  depends_on = [kubectl_manifest.ingress_class]
 }
 
-resource "kubectl_manifest" "certificate-dashboard" {
+resource "kubectl_manifest" "certificate_dashboard" {
   yaml_body = templatefile("${path.module}/templates/certificate-dashboard.yml", {
     namespace  = kubernetes_namespace.traefik.metadata.0.name
     dns        = var.traefik_domain
     issuerName = var.traefik_issuer_name
   })
-  depends_on = [helm_release.traefik]
+  depends_on = [kubectl_manifest.ingress_class]
 }
 
