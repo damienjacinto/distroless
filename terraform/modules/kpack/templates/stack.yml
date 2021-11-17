@@ -8,7 +8,7 @@ spec:
   buildImage:
     image: "paketobuildpacks/build:base-cnb"
   runImage:
-    image: "europe-central2-docker.pkg.dev/distroless-329216/distroless/base-cnb@sha256:c2568c34928edc431fa581e7fe4b15062b60325799b1e2ae2a47824c06a6bc69"
+    image: "europe-central2-docker.pkg.dev/distroless-329216/distroless/base-cnb@sha256:78aeacd6bdfd5079be5e171e576acdc563929486b69d4792cd296426bdef5dd9"
   serviceAccountRef:
     namespace: kpack
     name: kpack

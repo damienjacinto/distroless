@@ -13,7 +13,7 @@ spec:
       valueFiles:
       - values.yaml
     path: .
-    repoURL: "git@github.com:damienjacinto/distroless-argocd-bootstrap-app.git"
+    repoURL: "https://github.com/damienjacinto/distroless-argocd-bootstrap-app.git"
     targetRevision: HEAD
   syncPolicy:
     automated: {} 

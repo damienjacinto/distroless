@@ -34,7 +34,7 @@ variable "argocd_domain" {
 
 variable "argocd_version" {
   type    = string
-  default = "3.26.2"
+  default = "3.26.8"
 } 
 
 variable "argocd_issuer_name" {
