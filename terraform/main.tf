@@ -87,3 +87,11 @@ module "argocd-bootstrap" {
   arogcd_bootstrap_github                 = local.github_root
   argocd_bootstrap_repositories           = local.repositories
 }
+
+module "argocd-image-updater" {
+  source                                      = "./modules/argocd-image-updater"
+  argocd_image_updater_cluster_host           = module.gke.cluster_host
+  argocd_image_updater_cluster_ca_certificate = module.gke.ca_certificate
+  argocd_image_updater_registry_password      = file(local.gcr_auth_file)
+  argocd_image_updater_namespace              = module.argocd.argocd_namespace
+}

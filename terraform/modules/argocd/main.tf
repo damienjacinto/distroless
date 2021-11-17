@@ -67,4 +67,3 @@ resource "kubectl_manifest" "certificate-dashboard" {
   })
   depends_on = [helm_release.argocd]
 }
-
